@@ -1,0 +1,422 @@
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        @media (max-width: 600px) {
+            @content;
+        } 
+    }
+    @if $breakpoint == tab-port {
+        @media (max-width: 900px) {
+            @content;
+        }
+    }
+    @if $breakpoint == tab-land {
+        @media (max-width: 1250px) {
+            @content;
+        }  
+    }
+
+    @if $breakpoint == desktop{
+        @media (max-width: 1799px) {
+            @content;
+        } 
+    }
+
+    @if $breakpoint == big-desktop {
+        @media (min-width: 1800px) {
+            @content;
+        } 
+    }
+}
+
+*,
+*::before,
+*::after{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.edge{
+    padding: 0 30px;
+    height: 6.5vh;
+    position: relative;
+    z-index:1;
+    background: linear-gradient(0.5turn, rgb(67, 50, 29), rgb(82, 65, 44), rgb(67, 50, 29)) ;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    color: white;
+    @include respond(big-desktop){
+        font-size: 1vw;
+        padding: 0 1.5vw;
+    }
+    &.--header{
+        justify-content: space-between;
+        box-shadow: 0 20px 2rem rgba(black, 0.3);
+        &.username{
+            visibility: hidden;
+        }
+        & .nav{
+            display: flex;
+            &>*{
+                padding: 0 5px;
+                @include respond(big-desktop){
+                    padding: 0 0.5vw;
+                }
+                @include respond(phone){
+                    padding: 0 2px;
+                }
+            }
+            &__wide{
+                & .nav__wide-link{
+                    color: white;
+                    text-decoration: none;
+                    &:visited{
+                        color: white;
+                    }
+                    &:hover{
+                        text-decoration: underline;
+                    }
+                    &:active{
+                        color: gold;
+                    }
+                    &.--current{
+                        text-decoration: none;
+                        color: gold;
+                        pointer-events: none;
+                        box-shadow: 0 2px gold;
+                    }
+                }
+                @include respond(phone){
+                    display: none;
+                }
+            }
+            &__small{
+                display: none;
+                @include respond(phone){
+                    display: block;
+                    &-select{
+                        width: fit-content;
+                        text-align: right;
+                        color: gold;
+                        font-size: 18px;
+                        text-decoration: underline;
+                        background: none;
+                        outline: none;
+                        border: none;
+                        & .nav__small-link{
+                            background: black;
+                            color: white;
+                            font-size: 14px;
+                            &[disabled]{
+                                color: gray;
+                            }
+                        }
+                    }
+                }
+
+            }
+            
+        }
+    }
+    &.--footer{
+        justify-content: left;
+        box-shadow: 0 -10px 2rem rgba(black, 0.3);
+    }
+
+}
+
+.main{
+    padding: 40px 30px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10vh;
+    min-height: 87vh;
+    height: 100%;
+    background: cornsilk radial-gradient(rgb(253, 253, 245), cornsilk);
+    @include respond(big-desktop){
+        padding: 2vw 1.5vw;
+    }
+    &__title{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 8vw;
+        color: rgb(82, 65, 44);
+        text-align: center;
+        @include respond(tab-land){
+            font-size: 6rem;
+        }
+        @include respond(tab-port){
+            font-size: 4.5rem;
+        }
+        @include respond(phone){
+            font-size: 3rem;
+        }
+        &.--about{
+            @include respond(big-desktop){
+                font-size: 5vw;
+            }
+        }
+    }
+    &__description{
+        width: 55vw;
+        text-align: center;
+        font-size: 1.2vw;
+        line-height: 2;
+        @include respond(desktop){
+            font-size: 22px;
+        }
+        @include respond(tab-land){
+            font-size: 18px;
+        }
+        @include respond(phone){
+            font-size: 16px;
+        }
+    }
+    &__search{
+        min-width: 45vw;
+        width: auto;
+        height: 3.5vh;
+        display: flex;
+        flex-flow: row nowrap;
+        &>*{
+            padding: 0 15px;
+            font-size: 18px;
+            @include respond(phone){
+                font-size: 14px;
+            }
+            @include respond(tab-port){
+                padding: 0 5px;
+            }
+            @include respond(big-desktop){
+                font-size: 0.95vw;
+            }
+        }
+        &-select{
+            width:23%;
+            & option{
+                @include respond(phone){
+                    background: black;
+                    color: white;
+                    &[disabled]{
+                        color: gray;
+                    }
+                }
+            }
+        }
+        &-input{
+            width:62%;
+        }
+        &-button{
+            width:15%;
+            border-radius: 0 20px 20px 0;
+            color: white;
+            font-weight: bold;
+            background-color: red;
+            border: 3px solid rgb(99, 10, 10);
+            @include respond(big-desktop){
+                border-radius: 0 1vw 1vw 0;
+                border: 0.2vw solid rgb(99, 10, 10);
+            }
+            &:active{
+                color: red;
+                background-color: pink;
+                border: 3px solid red;
+                @include respond(big-desktop){
+                    border: 0.2vw solid red;
+                }
+            }
+            & .text{
+                &.--small{
+                    display: none;
+                }
+                @include respond(tab-land){
+                    display: none;
+                    &.--small{
+                        display: contents;
+                    }
+                }
+            }
+        }
+    }
+    &__article{
+        margin: 0 auto;
+        height: auto;
+        &.--search-success{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            @include respond(big-desktop){
+                row-gap: 4.5vw;
+                column-gap: 4.5vw;
+            }
+            @include respond(desktop){
+                grid-template-columns: repeat(3, 1fr);
+            }
+            @include respond(tab-land){
+                grid-template-columns: repeat(2, 1fr);
+            }
+            @include respond(tab-port){
+                grid-template-columns: repeat(1, 1fr);
+            }
+            grid-auto-rows: minmax(100px, auto);
+            row-gap: 90px;
+            column-gap: 90px;
+        }
+        
+    }
+}
+
+.card{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 450px;
+    width: 300px;
+    @include respond(big-desktop){
+        height: 22.5vw;
+        width: 15vw;
+    }
+    @include respond(tab-port){
+        height: 375px;
+        width: 250px;
+    }
+    @include respond(phone){
+        height: 300px;
+        width: 200px;
+    }
+    -moz-perspective: 200rem;
+    perspective: 200rem;
+    &__side{
+        height: 100%;
+        width: 100%;
+        transition: all 0.8s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        -webkit-backface-visibility: hidden; /* We don't want to see the back part of the element. */
+        backface-visibility: hidden; /* We don't want to see the back part of the element. */
+        border-radius: 3px;
+        overflow: hidden; /* The image is overflowing the parent. */
+        box-shadow: 0 1rem 3rem rgba(black, 0.3);
+        &.--front{
+            object-fit: fill;
+        }
+        &.--back {
+            display: flex;
+            flex-flow: column nowrap;
+            background-color: rgba(black, 0.7);
+            transform: rotateY(180deg);
+            color: white;
+            padding: 20px;
+            overflow-y:auto;
+            @include respond(big-desktop){
+                padding: 1vw;
+            }
+            ul{
+                height: auto;
+                list-style: none;
+                text-align: center;
+                font-size: 16px;
+                @include respond(big-desktop){
+                    font-size: 0.8vw;
+                }
+                .title{
+                    font-size: 18px;
+                    font-weight: bold;
+                    @include respond(big-desktop){
+                        font-size: 0.9vw;
+                    }
+                }
+                li{
+                    padding: 10px 0;
+                    @include respond(big-desktop){
+                        padding: 0.5vw 0;
+                    }
+                    &:not(:last-child){
+                        border-bottom: 1px solid white;
+                        @include respond(big-desktop){
+                            border-bottom: 0.05vw solid white;
+                        }
+                    }
+                }
+            }
+            .form{
+                margin: 0 auto;
+                position: sticky;
+                bottom: 0;
+                padding-top: 10px;
+                @include respond(big-desktop){
+                    padding-top: 0.5vw;
+                }
+                &__button{
+                    width: 180px;
+                    height: 50px;
+                    @include respond(phone){
+                        width: 150px;
+                        height: 50px;
+                    }
+                    color: white;
+                    font-weight: bold;
+                    background-color: red;
+                    border: 3px solid rgb(99, 10, 10);
+                    box-shadow: 0 6px 2px rgb(black, 0.5);
+                    border-radius: 25px;
+                    @include respond(big-desktop){
+                        font-size: 0.7vw;
+                        width: 9vw;
+                        height: 2.5vw;
+                        border: 0.15vw solid rgb(99, 10, 10);
+                        box-shadow: 0 0.3vw 0.1vw rgb(black, 0.5);
+                        border-radius: 1.25vw;
+                    }
+                    &:active{
+                        color: red;
+                        background-color: pink;
+                        border: 3px solid red;
+                        box-shadow: 0 5px 2px rgb(black, 0.5);
+                        @include respond(big-desktop){
+                            border: 0.15vw solid red;
+                            box-shadow: 0 0.25vw 0.1vw rgb(black, 0.5);
+                        }
+                    }
+                    &.--disabled{
+                        background-color: gray;
+                        border: 3px solid rgb(99, 99, 99);
+                        pointer-events: none;
+                        @include respond(big-desktop){
+                            border: 0.15vw solid rgb(99, 99, 99);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &:hover &__side.--back {
+        transform: rotateY(0);
+    }
+    &:hover &__side.--front {
+        transform: rotateY(-180deg);
+    }
+}
+
+.no-results{
+    height: auto;
+    width: auto;
+    visibility: hidden;
+    text-align: center;
+    font-size: 1.15vw;
+    @include respond(desktop){
+        font-size: 20px;
+    }
+    @include respond(phone){
+        font-size: 18px;
+    }
+}
